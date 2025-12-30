@@ -68,3 +68,4 @@ sns.histplot(df['onpix'], bins=16, kde=True, color='purple')
 plt.title("Distribution of Total 'On' Pixels Across All Stimuli", fontsize=14)
 plt.savefig("letter_onpix_distribution.png")
 plt.show()
+
