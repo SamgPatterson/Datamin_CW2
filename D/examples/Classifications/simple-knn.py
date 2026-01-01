@@ -21,7 +21,7 @@ y = df['Purchased']
 # 2. Split into Training and Test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-print(X_train)
+print(X_test)
 
 # 3. FEATURE SCALING (Crucial for K-NN)
 # This scales the data so Age and Salary have equal weight in distance calculations
@@ -29,7 +29,7 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-print(X_train)
+print(X_test)
 
 # 4. Initialize and Train the K-NN Classifier
 # We'll look at the 3 nearest neighbors (k=3)

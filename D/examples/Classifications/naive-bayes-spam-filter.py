@@ -1,7 +1,10 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # 1. Sample Data (Text and Labels: 0 = Ham, 1 = Spam)
 emails = [
@@ -22,6 +25,8 @@ vectorizer = CountVectorizer()
 X_train_counts = vectorizer.fit_transform(X_train)
 X_test_counts = vectorizer.transform(X_test)
 
+print(X_test_counts)
+
 # 4. Initialize and Train the Naive Bayes Classifier
 model = MultinomialNB()
 model.fit(X_train_counts, y_train)
@@ -33,8 +38,20 @@ predictions = model.predict(X_test_counts)
 print(f"Accuracy: {accuracy_score(y_test, predictions)}")
 print("\nDetailed Report:\n", classification_report(y_test, predictions))
 
+# --- NEW: Confusion Matrix Visualization ---
+cm = confusion_matrix(y_test, predictions)
+
+plt.figure(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+            xticklabels=['Ham', 'Spam'], 
+            yticklabels=['Ham', 'Spam'])
+plt.title('Confusion Matrix: Spam Detection')
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.show()
+
 # 7. Test with a completely new message
-new_email = ["Win cash prizes now!"]
+new_email = ["Hello Sam how are you?"]
 new_email_counts = vectorizer.transform(new_email)
 result = model.predict(new_email_counts)
 
